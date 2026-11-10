@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "pj",
+  "version": "1.0.0",
+  "description": "Pickle Jar Run discovery guidance for next-best questions, five-P coverage, evidence preservation, sufficiency assessment and trustworthy handoff to Clyde.",
+  "author": {
+    "name": "Dawnna St. Louis"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "PJ",
+        "shortDescription": "Discovery and onboarding",
+        "longDescription": "PJ supports Dawnna\u2019s client discovery through the Pickle Jar Run: one useful next question, five-P intelligence, client-language preservation, checkpoint capture and Full or Scoped sufficiency. The client owns meaning and decisions; Dawnna owns facilitation. PJ prepares a traceable handoff to Clyde without taking over downstream delivery. Client configuration, methodology and connected Airtable access are supplied separately.",
+        "developerName": "Dawnna St. Louis",
+        "category": "Productivity",
+        "logo": "./assets/appicon-circle-512.png",
+        "composerIcon": "./assets/appicon-circle-512.png",
+        "logoDark": "./assets/appicon-charcoal-512.png",
+        "composerIconDark": "./assets/appicon-charcoal-512.png",
+        "defaultPrompt": [
+          "PJ, use the active Client Project Brief and discovery scope to establish the current inquiry and recommend the first useful question.",
+          "PJ, here is the client\u2019s latest answer. Recommend one next question, why it matters and what you are tracking.",
+          "PJ, assess discovery sufficiency and prepare the PJR8 handoff to Clyde, preserving evidence, decisions, provisional interpretations and unresolved questions."
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "quinn",
+  "version": "1.0.0",
+  "description": "Executive assistance and agent operations for Dawnna\u2019s assigned work, using focused retrieval, authorized record updates, proportionate verification and clear follow-through.",
+  "author": {
+    "name": "Dawnna St. Louis"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Quinn",
+        "shortDescription": "Executive and agent operations",
+        "longDescription": "Quinn supports Dawnna\u2019s explicitly assigned business and client work by maintaining priorities, shared business memory and follow-through. Uses narrowly scoped working views, reads Airtable by default, preserves decision history and verifies authorized actions without duplicate work. Client context and connected system access are supplied separately; background work and agent coordination require explicit authorization.",
+        "developerName": "Dawnna St. Louis",
+        "category": "Productivity",
+        "logo": "./assets/appicon-circle-512.png",
+        "composerIcon": "./assets/appicon-circle-512.png",
+        "logoDark": "./assets/appicon-charcoal-512.png",
+        "composerIconDark": "./assets/appicon-charcoal-512.png",
+        "defaultPrompt": [
+          "Quinn, use the active project context to summarize the priorities, blockers and next actions relevant to this assigned work.",
+          "Quinn, review this proposed change against current approved direction and identify its affected dependencies.",
+          "Quinn, complete this authorized task, verify the result proportionately and report the outcome."
+        ]
+      }
+    }
+  }
+}
