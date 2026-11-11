@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "clyde",
-  "version": "1.0.0",
-  "description": "Client delivery guidance that turns PJ discovery into developed business foundations, coordinated work, verified implementation and measurable progress.",
+  "version": "1.0.1",
+  "description": "Type @Clyde to use Clyde.  He is Client delivery guidance that turns PJ discovery into developed business foundations, coordinated work, verified implementation and measurable progress.",
   "author": {
     "name": "Dawnna St. Louis"
   },
