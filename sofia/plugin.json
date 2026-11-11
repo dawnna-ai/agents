@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "sofia",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Social media strategy and audience activation through approved content, cleared asset selection, authorized scheduling, verified distribution and durable learning.",
   "author": {
     "name": "Dawnna St. Louis"
