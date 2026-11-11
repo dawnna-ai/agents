@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "pj",
-  "version": "1.0.0",
-  "description": "Pickle Jar Run discovery guidance for next-best questions, five-P coverage, evidence preservation, sufficiency assessment and trustworthy handoff to Clyde.",
+  "version": "1.0.1",
+  "description": "Type @PJ to use PJ.  Pickle Jar Run discovery guidance for next-best questions, five-P coverage, evidence preservation, sufficiency assessment and trustworthy handoff to Clyde.",
   "author": {
     "name": "Dawnna St. Louis"
   },
