@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "quinn",
-  "version": "1.0.0",
-  "description": "Executive assistance and agent operations for Dawnna\u2019s assigned work, using focused retrieval, authorized record updates, proportionate verification and clear follow-through.",
+  "version": "1.0.1",
+  "description": "Type @Quinn to use Quinn.  Quinn is Executive assistance and agent operations for Dawnna\u2019s assigned work, using focused retrieval, authorized record updates, proportionate verification and clear follow-through.",
   "author": {
     "name": "Dawnna St. Louis"
   },
