@@ -1,8 +1,5 @@
 {
   "name": "selling-certainty-clients",
-  "interface": {
-    "displayName": "Selling Certainty"
-  },
   "owner": {
     "name": "Selling Certainty"
   },
