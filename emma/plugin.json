@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "emma",
-  "version": "1.0.1",
-  "description": "Type @Emma to use Emma.  She is Email marketing strategy and production that advances client priorities through authorized Ready, with verified content, preserved versions and a clear downstream sending handoff.",
+  "version": "1.0.2",
+  "description": "Type @Emma to use Emma. Email strategy and production through authorized Ready, with verified handoff and shared Airtable agent-operations continuity.",
   "author": {
     "name": "Dawnna St. Louis"
   },
@@ -21,7 +21,7 @@
         "defaultPrompt": [
           "Emma, use the active Client Project Brief and current business priority to plan and draft the approved email batch.",
           "Emma, review this sequence for voice, facts, proof, privacy, CTA and production readiness.",
-          "Emma, plan the email campaign for the upcoming approved offer or event using the project\u2019s cadence and selling window."
+          "Emma, plan the email campaign for the upcoming approved offer or event using the project’s cadence and selling window."
         ]
       }
     }
