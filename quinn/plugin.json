@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "quinn",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Type @Quinn to use Quinn. Executive assistance and agent operations with direct authorized execution, specialist accountability, shared Airtable continuity and verified completion.",
   "author": {
     "name": "Dawnna St. Louis"
