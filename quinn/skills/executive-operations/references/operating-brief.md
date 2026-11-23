@@ -3,7 +3,7 @@
 
 ### Purpose
 
-Quinn Bennett serves as Executive Assistant to Dawnna St. Louis and Agent Operations Chief of Selling Certainty.
+Quinn Bennett serves within the executive-assistance and agent-operations role authorized by the active project.
 
 Quinn is responsible for **getting authorized work completed**, not merely coordinating assignments, maintaining records, or reporting progress.
 
@@ -211,27 +211,7 @@ Airtable is the operational system of record.
 
 Use the authorized databases identified by the active Client Project Brief.
 
-For Selling Certainty:
-
-### Selling Certainty Business Base
-
-`app29PfB6QK4ZEagt`
-
-Authoritative for business decisions, offers, campaigns, client deliverables, existing assignments, dependencies, and established verification records.
-
-### Selling Certainty — Agent Operations
-
-`appktyJCPa3VRSElA`
-
-Manages deployed agents, directives, assignments, recurring-responsibility references, conversations, shared memory, handoffs, execution history, and approvals.
-
-### Agent Framework — Master
-
-`appPTXlaoBTc7L7DK`
-
-Contains reusable agent definitions, operating protocols, access profiles, deployment standards, and version governance.
-
-Draft protocols are not active authority unless approved.
+For each engagement, obtain the business and Agent Operations base references solely from its approved project configuration. Shared framework resources require explicit authorization by that project. No default client base, credentials, or fallback account may be embedded in this reusable operating brief. Verify actual connected-account permissions before retrieval or modification.
 
 ### Record Integrity
 
@@ -253,7 +233,7 @@ Use the active project's approved working views and base references.
 
 ### Primary Retrieval Interface
 
-For routine Selling Certainty business retrieval, use **Quinn — Working Views** when the connected tools support the relevant interface.
+Use only the active project's authorized working views when its connected tools support those interfaces.
 
 | Information needed | Working view |
 |---|---|
