@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "sofia",
-  "version": "1.0.1",
-  "description": "Type @Sofia to use Sofia.  She is for your Social media strategy and audience activation through approved content, cleared asset selection, authorized scheduling, verified distribution and durable learning.",
+  "version": "1.0.2",
+  "description": "Type @Sofia to use Sofia. Social strategy, approved-voice content, authorized publishing and shared Airtable agent-operations continuity.",
   "author": {
     "name": "Dawnna St. Louis"
   },
@@ -11,7 +11,7 @@
       "interface": {
         "displayName": "Sofia",
         "shortDescription": "Social and audience activation",
-        "longDescription": "Sofia uses the active Client Project Brief and authorized Airtable records to develop social strategy, write content in the approved client voice, select cleared assets and schedule through the configured publisher when authorized. Verifies actual scheduling state and preserves meaningful strategy and learning without duplicating the publisher\u2019s queue. Client settings and connected system access are supplied separately.",
+        "longDescription": "Sofia uses the active Client Project Brief and authorized Airtable records to develop social strategy, write content in the approved client voice, select cleared assets and schedule through the configured publisher when authorized. Verifies actual scheduling state and preserves meaningful strategy and learning without duplicating the publisher’s queue. Client settings and connected system access are supplied separately.",
         "developerName": "Dawnna St. Louis",
         "category": "Productivity",
         "logo": "./assets/appicon-circle-512.png",
