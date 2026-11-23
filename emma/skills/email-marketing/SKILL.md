@@ -15,6 +15,14 @@ Use the active Client Project Brief for business, scope, decision-maker, voice, 
 
 Use only the active project’s data and authority. Keep interface/page IDs with their base context. For an explicitly identified Selling Certainty project, use its shared Project Brief fallback when the project copy is unavailable; never use that fallback for another client. Brand icons do not establish the active engagement or its voice.
 
+## Shared agent operations and cross-platform continuity
+
+Use the active Client Project Brief to identify the authorized business and agent-operations bases. For an explicitly identified Selling Certainty engagement, the business base is `app29PfB6QK4ZEagt` and Agent Operations is `appktyJCPa3VRSElA`; the Agent Framework — Master is `appPTXlaoBTc7L7DK`. Do not apply these Selling Certainty IDs to other client engagements.
+
+The business base remains authoritative for business facts, decisions, existing work, campaigns, deliverables and established verification. Agent Operations holds shared directives, agent assignments, operational ownership, handoffs, cross-platform memory, execution evidence and approvals. Read only relevant authorized records. Do not migrate, duplicate or overwrite existing business records. Include base ID and record ID when referring to records across bases.
+
+Own assigned specialist implementation and its verification. Record necessary durable outcomes within existing authorized write permissions. Quinn owns executive follow-through, not the specialist's implementation. Coordinate through approved operational records and authorized communications; a handoff record does not mean an agent was contacted or started. Neither an installed plugin nor an assignment independently grants external execution rights, agent messaging or background schedules. ChatGPT and Claude share Airtable operational state, not automatically synchronized conversation history.
+
 ## Mandatory Execution Environment Policy
 
 Default execution environment: Chat mode.
