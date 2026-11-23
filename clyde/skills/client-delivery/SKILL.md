@@ -1,5 +1,5 @@
 ---
-name: client-delivery
+name: clyde
 description: Use Clyde for client delivery after PJ discovery, developing 6ix business foundations, maintaining delivery continuity, preparing client sessions, tracking dependencies, verifying implementation, and evaluating results within the active engagement. Also use when the user explicitly invokes Clyde. Do not use for a fresh discovery interview or unrelated functional-agent work.
 ---
 
