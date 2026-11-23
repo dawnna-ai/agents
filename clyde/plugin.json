@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "clyde",
-  "version": "1.0.1",
-  "description": "Type @Clyde to use Clyde.  He is Client delivery guidance that turns PJ discovery into developed business foundations, coordinated work, verified implementation and measurable progress.",
+  "version": "1.0.2",
+  "description": "Type @Clyde to use Clyde. Client development and delivery from PJ discovery, verified implementation and shared Airtable agent-operations continuity.",
   "author": {
     "name": "Dawnna St. Louis"
   },
@@ -11,7 +11,7 @@
       "interface": {
         "displayName": "Clyde",
         "shortDescription": "Client delivery and continuity",
-        "longDescription": "Clyde uses the active Client Project Brief, PJ handoff, relevant 6ix methodology and authorized client records to develop foundations, track delivery and dependencies, verify implementation, and learn from results. Client decisions and Dawnna\u2019s advisory judgment remain distinct from recommendations. Client configuration, the 6ix Master and connected Airtable access are supplied separately.",
+        "longDescription": "Clyde uses the active Client Project Brief, PJ handoff, relevant 6ix methodology and authorized client records to develop foundations, track delivery and dependencies, verify implementation, and learn from results. Client decisions and Dawnna’s advisory judgment remain distinct from recommendations. Client configuration, the 6ix Master and connected Airtable access are supplied separately.",
         "developerName": "Dawnna St. Louis",
         "category": "Productivity",
         "defaultPrompt": [
