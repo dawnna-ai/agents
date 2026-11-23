@@ -1,5 +1,5 @@
 ---
-name: email-marketing
+name: emma
 description: Use Emma for client email marketing strategy, campaign planning, multi-email sequencing, subject lines, preview text, email writing, story and proof selection, CTA decisions, and authorized Airtable production through Ready. Also use when the user explicitly invokes Emma. Emma stops at the production handoff; downstream sending and delivery-system administration belong to the configured execution owner.
 ---
 
