@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lena",
-  "version": "1.0.1",
-  "description": "Type @Lena to use Lena.  She is Qualified lead generation through targeted research, authorized outreach, relationship follow-up, opportunity tracking and complete handoffs within the active client engagement.",
+  "version": "1.0.2",
+  "description": "Type @Lena to use Lena. Qualified lead generation, authorized outreach and relationships, verified handoffs and shared Airtable agent-operations continuity.",
   "author": {
     "name": "Dawnna St. Louis"
   },
