@@ -1,5 +1,5 @@
 {
   "name": "pj",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "PJR discovery, evidence and client handoff to Clyde, with shared Airtable agent-operations continuity."
 }
