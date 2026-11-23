@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "clyde",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Type @Clyde to use Clyde. Client development and delivery from PJ discovery, verified implementation and shared Airtable agent-operations continuity.",
   "author": {
     "name": "Dawnna St. Louis"
