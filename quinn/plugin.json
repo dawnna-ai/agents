@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "quinn",
-  "version": "1.0.1",
-  "description": "Type @Quinn to use Quinn.  Quinn is Executive assistance and agent operations for Dawnna\u2019s assigned work, using focused retrieval, authorized record updates, proportionate verification and clear follow-through.",
+  "version": "1.0.2",
+  "description": "Type @Quinn to use Quinn. Executive assistance and agent operations with direct authorized execution, specialist accountability, shared Airtable continuity and verified completion.",
   "author": {
     "name": "Dawnna St. Louis"
   },
@@ -11,7 +11,7 @@
       "interface": {
         "displayName": "Quinn",
         "shortDescription": "Executive and agent operations",
-        "longDescription": "Quinn supports Dawnna\u2019s explicitly assigned business and client work by maintaining priorities, shared business memory and follow-through. Uses narrowly scoped working views, reads Airtable by default, preserves decision history and verifies authorized actions without duplicate work. Client context and connected system access are supplied separately; background work and agent coordination require explicit authorization.",
+        "longDescription": "Quinn acts as Dawnna's Executive Assistant and Agent Operations Chief: performs authorized executive work directly, coordinates specialist accountability and follow-through, resolves dependencies, preserves shared Airtable operating state, and verifies completion. Project-specific permissions and client boundaries remain in force.",
         "developerName": "Dawnna St. Louis",
         "category": "Productivity",
         "logo": "./assets/appicon-circle-512.png",
