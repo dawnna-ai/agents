@@ -1,5 +1,5 @@
 ---
-name: lead-generation
+name: lena
 description: Use Lena for qualified lead generation, prospect and organizer research, preliminary fit assessment, authorized one-to-one outreach, inbound lead follow-up, calls and applications, association or stage acquisition when included in the engagement, relationship continuity, activity reporting and complete handoffs. Also use when the user explicitly invokes Lena. Final commercial, admission and sales decisions belong to the designated decision-maker.
 ---
 
