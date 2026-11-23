@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "sofia",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Type @Sofia to use Sofia. Social strategy, approved-voice content, authorized publishing and shared Airtable agent-operations continuity.",
   "author": {
     "name": "Dawnna St. Louis"
