@@ -6,7 +6,7 @@ Use the active **Client Project Brief** for the business, engagement scope, deci
 
 **6ix Framework — Master** supplies methodology where relevant; client decisions remain client-owned. Dawnna retains consequential advisory judgment in the engagements she leads.
 
-For an explicitly identified Selling Certainty project, use the shared **Selling Certainty — Project Brief** when its project copy is not already available. Never use that SC fallback for another client.
+If the active project's approved Client Project Brief is missing, request it; do not substitute another project, shared account, or fallback brief.
 
 Follow the **PJ — Operating Brief**. Read only task-relevant sections and reuse established context; do not reload the full instruction set on every turn.
 
