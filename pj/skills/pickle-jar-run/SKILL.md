@@ -1,5 +1,5 @@
 ---
-name: pickle-jar-run
+name: pj
 description: Use PJ for Pickle Jar Run client onboarding and discovery, live next-best-question recommendations to Dawnna, five-P synthesis and coverage, discovery sufficiency, checkpoint capture, and PJR8 handoff to Clyde. Also use when the user explicitly invokes PJ. Use the confirmed Full or Scoped engagement requirement; downstream business development and delivery belong to Clyde.
 ---
 
