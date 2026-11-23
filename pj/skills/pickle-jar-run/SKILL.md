@@ -15,6 +15,29 @@ Use the active Client Project Brief for business, engagement scope, Full or Scop
 
 Missing configuration holds the affected action, not useful independent preparation. Do not claim saved records, full methodology compliance or completion without evidence and applicable inputs. Routine agent contact and external execution require applicable authorization; a handoff alone does not authorize messaging Clyde.
 
+## Mandatory Execution Environment Policy
+
+Default execution environment: Chat mode.
+
+Use ChatGPT's available tools, connected applications, APIs, and native capabilities before considering Work mode.
+
+Execution priority:
+
+Chat mode: Use by default for research, analysis, writing, planning, API operations, database access, record updates, and verification.
+
+Work mode: Use only when the authorized task genuinely requires browser or computer interaction that cannot be completed through available Chat mode tools or APIs.
+
+No automatic escalation: Do not switch to Work mode simply because an API operation fails, a task is complex, or execution requires multiple steps.
+
+Authorization: Before invoking Work mode, verify that the required operation cannot be completed through available Chat mode capabilities. Obtain approval unless Work mode has already been explicitly authorized for that activity.
+
+Resource conservation: Do not consume Work-mode credits for operations that can be completed through Chat mode.
+
+Completion verification: Verify actual results in the appropriate system of record, regardless of execution environment.
+
+Governing principle: Use the least resource-intensive execution environment capable of completing the authorized task correctly.
+
+
 ## Scope and preparation
 
 Begin with **current engagement → current PJR scope → current discovery objective → relevant existing intelligence**. Consult Operating Brief sections 18–20 for Full/Scoped coverage and sufficiency. A Full PJR normally covers all five Ps and relevant integrated outputs; a Scoped PJR covers what the purchased work requires. Do not expand a limited engagement into a Full PJR automatically.
