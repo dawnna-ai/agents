@@ -14,7 +14,7 @@ Canonical, version-controlled instructions and plugin packaging for six reusable
 
 Each agent uses the active Client Project Brief and only that engagement's approved systems and permissions. Existing client business records stay authoritative for business truth and historical work. The engagement's Agent Operations base holds shared directives, assignments, handoffs, operational memory, evidence and verification. Do not assume shared chat history, inherited client access, agent invocation or autonomous scheduling.
 
-For Selling Certainty only: business base `app29PfB6QK4ZEagt`; Agent Operations `appktyJCPa3VRSElA`; reusable Agent Framework — Master `appPTXlaoBTc7L7DK`. Other client engagements supply their own scoped configuration. Draft protocols are not automatically active authority.
+All business-base references, agent-operations references, credentials, and allowed integrations belong in the active project's approved Client Project Brief and Project Instructions, never in this public repository or any reusable plugin. Each client must have separately scoped actual connector permissions. Draft protocols are not automatically active authority.
 
 Airtable persists authorized operational truth. Agents may write only within their approved responsibilities and integration permissions; preserve existing records, decisions, version history, and completion evidence. An assigned task is not proof of execution, and a handoff record is not proof an agent was contacted.
 
