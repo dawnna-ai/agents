@@ -11,24 +11,14 @@ const j = (body,status=200,headers={}) => new Response(JSON.stringify(body),{sta
 const rpc = (id,result) => ({jsonrpc:"2.0",id,result});
 const err = (id,code,message) => ({jsonrpc:"2.0",id,error:{code,message}});
 function b64(s){return Uint8Array.from(atob(s.replace(/-/g,"+").replace(/_/g,"/").padEnd(Math.ceil(s.length/4)*4,"=")),x=>x.charCodeAt(0));}
-async function authenticate(request,env){
-  if(!env.MCP_JWT_SECRET) return null;
-  const auth=request.headers.get("authorization")||"";
-  if(!auth.startsWith("Bearer "))return null;
-  const parts=auth.slice(7).split(".");
-  if(parts.length!==3)return null;
-  try {
-    const [h,p,s]=parts;
-    const header=JSON.parse(new TextDecoder().decode(b64(h)));
-    if(header.alg!=="HS256"||header.typ!=="JWT")return null;
-    const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(env.MCP_JWT_SECRET),{name:"HMAC",hash:"SHA-256"},false,["verify"]);
-    if(!await crypto.subtle.verify("HMAC",key,b64(s),new TextEncoder().encode(h+"."+p)))return null;
-    const claims=JSON.parse(new TextDecoder().decode(b64(p)));
-    if(claims.iss!=="selling-certainty-mcp"||claims.aud!=="selling-certainty-mcp"||!claims.sub||
-      !Number.isFinite(claims.exp)||claims.exp<=now()||claims.exp>now()+86400||
-      !TENANTS[claims.tenant])return null;
-    return {tenant:claims.tenant,subject:claims.sub};
-  }catch{return null;}
+async function authenticate(request,env,ctx){
+  // Trust only identity verified by Cloudflare Access for this exact application.
+  if (!ctx?.access || ctx.access.aud !== '32b0d084a2cd69b6e1ac6534d2dd32ef6f115c30ff7bed99d72915e811b9c97b') return null;
+  let identity;
+  try { identity = await ctx.access.getIdentity(); } catch { return null; }
+  const email = String(identity?.email || '').trim().toLowerCase();
+  if(email === 'mikemdf71@gmail.com') return {tenant:'allstar', subject:email};
+  return null;
 }
 const toolDefs=[
   ["list_records","List selected records from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},max_records:{type:"integer",minimum:1,maximum:50}}],
@@ -65,12 +55,12 @@ async function doTool(name,args,identity,env){
   return JSON.parse(responseText);
 }
 export default {
-  async fetch(request,env){
+  async fetch(request,env,ctx){
     const url=new URL(request.url);
     if(url.pathname==="/health"&&request.method==="GET")return j({service:"selling-certainty-mcp",status:"staging",ready:false});
     if(url.pathname!=="/mcp")return new Response("Not found",{status:404});
     // No public MCP tool enumeration; require valid tenant identity first.
-    const identity=await authenticate(request,env);
+    const identity=await authenticate(request,env,ctx);
     if(!identity)return j({error:"unauthorized"},401,{"www-authenticate":'Bearer realm="Selling Certainty MCP"'});
     if(request.method!=="POST")return j({error:"method not allowed"},405);
     const raw=await request.text();
