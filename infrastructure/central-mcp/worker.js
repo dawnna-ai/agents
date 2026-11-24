@@ -46,7 +46,7 @@ const toolSpecs = [
 ];
 const toolDefs=toolSpecs.map(([name,description,properties,required])=>({name,description,inputSchema:{type:"object",properties,required,additionalProperties:false}}));
 function validId(id,prefix){return typeof id==="string"&&new RegExp("^"+prefix+"[A-Za-z0-9]{14}$").test(id);}
-function validTable(id){return validId(id,"tbl")||(typeof id==="string"&&id.length>0&&id.length<=100&&!/[\\/\\?#]/.test(id));}
+function validTable(id){return validId(id,"tbl")||(typeof id==="string"&&id.length>0&&id.length<=100&&!id.includes("/")&&!id.includes("?")&&!id.includes("#")&&!id.includes("\\"));}
 function authorized(args,identity,writable=false){
  const rights=TENANTS[identity.tenant];
  if(!rights||!validId(args.base_id,"app")||!rights.readable.includes(args.base_id)||(writable&&!rights.writable.includes(args.base_id)))throw new Error("Base not authorized for this client and operation");
