@@ -1,0 +1,5 @@
+{
+  "name": "ideal-client-profile",
+  "version": "1.0.0",
+  "description": "One reusable independent buyer-simulation agent using the active client's named Ideal Client Profiles in Airtable."
+}
