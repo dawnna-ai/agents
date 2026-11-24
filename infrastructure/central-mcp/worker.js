@@ -38,6 +38,8 @@ const toolSpecs = [
  ["list_bases","Discover the current authenticated client's authorized Airtable bases with their purpose and read/write permissions. No arguments needed.",{},[]],
  ["list_tables","Discover the tables and names in an authorized Airtable base. Requires schema.bases:read scope on the corresponding Airtable token.",{base_id:{type:"string"}},["base_id"]],
  ["get_table_schema","Discover field names, IDs, types and descriptions in an authorized Airtable table. Requires schema.bases:read scope.",{base_id:{type:"string"},table_id:{type:"string"}},["base_id","table_id"]],
+ ["get_base_relationships","Find Airtable linked-record relationships within an authorized base. Requires schema.bases:read.",{base_id:{type:"string"}},["base_id"]],
+ ["get_database_guide","Explain authorized base purpose, observed table descriptions, and safe operational conventions. Distinguishes verified metadata from unconfigured business rules; requires schema.bases:read.",{base_id:{type:"string"}},["base_id"]],
  ["search_records","Search records by text in an authorized Airtable table. Scans at most 500 records; results can be partial in larger tables.",{base_id:{type:"string"},table_id:{type:"string"},query:{type:"string",minLength:1,maxLength:200},max_records:{type:"integer",minimum:1,maximum:50}},["base_id","table_id","query"]],
  ["list_records","List selected records from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},max_records:{type:"integer",minimum:1,maximum:50}},["base_id","table_id"]],
  ["read_record","Read a record from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},record_id:{type:"string"}},["base_id","table_id","record_id"]],
@@ -71,9 +73,31 @@ async function doTool(name,args,identity,env){
  const writable=["create_record","update_record"].includes(name);
  const rights=authorized(args,identity,writable);
  const token=getToken(identity,args.base_id,rights,env);
- if(name==="list_tables"||name==="get_table_schema"){
+ if(["list_tables","get_table_schema","get_base_relationships","get_database_guide"].includes(name)){
    const meta=await airtable("https://api.airtable.com/v0/meta/bases/"+args.base_id+"/tables",token);
    if(!Array.isArray(meta.tables))throw new Error("Invalid Airtable schema");
+   if(name==="get_base_relationships"){
+     const ids=new Set(meta.tables.map(t=>t.id));
+     const relationships=[];
+     for(const t of meta.tables)for(const f of (t.fields||[])){
+       if(f.type!=="multipleRecordLinks")continue;
+       const target=f.options?.linkedTableId;
+       if(!target || !ids.has(target))continue;
+       const linked=meta.tables.find(q=>q.id===target);
+       relationships.push({source_table:{id:t.id,name:t.name},source_field:{id:f.id,name:f.name},target_table:{id:linked.id,name:linked.name},inverse_field_id:f.options?.inverseLinkFieldId||null,source:"airtable_linked_record_schema"});
+     }
+     return {base_id:args.base_id,relationships,scope:"Links within this base only; no inferred operational workflow",source:"airtable_schema"};
+   }
+   if(name==="get_database_guide"){
+     const directoryName=FRAMEWORKS[args.base_id]||BASE_DIRECTORY[identity.tenant]?.[args.base_id]||"Authorized client database";
+     const readOnly=!rights.writable.includes(args.base_id);
+     const relationships=[];
+     for(const t of meta.tables)for(const f of (t.fields||[]))if(f.type==="multipleRecordLinks"&&f.options?.linkedTableId){
+       const target=meta.tables.find(q=>q.id===f.options.linkedTableId);
+       if(target)relationships.push({from:t.name,field:f.name,to:target.name});
+     }
+     return {base_id:args.base_id,name:directoryName,access:readOnly?"read_only":"read_write",purpose:readOnly?"Shared reference framework; no modifications permitted":"Client-specific authorized business or agent-operations data",tables:meta.tables.map(t=>({id:t.id,name:t.name,description:t.description||null,primary_field_id:t.primaryFieldId,field_names:(t.fields||[]).map(f=>f.name)})),relationships,operational_rules:{status:"not_configured",authoritative_sources:"Not verified; consult approved Client Project Brief and Project Instructions",record_ownership:"Not verified; do not infer from names",completion_evidence:"An assignment or handoff is not proof of execution",write_safety:"Use only approved client-specific operating procedures; never invent status transitions or record mappings"},provenance:{schema:"live Airtable metadata",purpose:"server-configured base directory",operational_rules:"generic guardrails, not client-approved SOP"},warning:"Table names, field names, and links do not establish business workflow authority."};
+   }
    if(name==="list_tables")return {base_id:args.base_id,tables:meta.tables.map(t=>({id:t.id,name:t.name,description:t.description||"",primaryFieldId:t.primaryFieldId}))};
    if(!validTable(args.table_id))throw new Error("Invalid table identifier");
    const table=meta.tables.find(t=>t.id===args.table_id||t.name===args.table_id);
