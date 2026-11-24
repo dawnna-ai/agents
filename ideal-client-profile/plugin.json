@@ -18,7 +18,11 @@
           "Ideal Client Persona, list the available approved buyer profiles for this client.",
           "Ideal Client Persona, speak as the profile I name and react to this message as a real buyer.",
           "Ideal Client Persona, switch to another approved profile in this client project."
-        ]
+        ],
+        "logo": "./assets/appicon-circle-512.png",
+        "composerIcon": "./assets/appicon-circle-512.png",
+        "logoDark": "./assets/appicon-charcoal-512.png",
+        "composerIconDark": "./assets/appicon-charcoal-512.png"
       }
     }
   }
