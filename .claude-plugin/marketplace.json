@@ -42,6 +42,12 @@
       "source": "./sofia",
       "description": "Social strategy, approved-voice content, authorized publishing and shared Airtable continuity.",
       "version": "1.0.4"
+    },
+    {
+      "name": "ideal-client-profile",
+      "source": "./ideal-client-profile",
+      "description": "Independent buyer simulation using any named approved profile in the active client's Airtable Ideal Client Profiles table.",
+      "version": "1.0.0"
     }
   ]
 }
