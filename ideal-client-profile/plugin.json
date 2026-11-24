@@ -1,0 +1,25 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ideal-client-profile",
+  "version": "1.0.0",
+  "description": "Type @Ideal Client Persona to simulate an approved buyer profile from the active client's Airtable Ideal Client Profiles table.",
+  "author": {
+    "name": "Dawnna St. Louis"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ideal Client Persona",
+        "shortDescription": "Independent buyer simulations",
+        "longDescription": "Choose any approved named ideal-client or referral partner profile from this engagement's Airtable records, then receive independent, realistic first-person buyer reactions. No personas or credentials are built in.",
+        "developerName": "Dawnna St. Louis",
+        "category": "Productivity",
+        "defaultPrompt": [
+          "Ideal Client Persona, list the available approved buyer profiles for this client.",
+          "Ideal Client Persona, speak as the profile I name and react to this message as a real buyer.",
+          "Ideal Client Persona, switch to another approved profile in this client project."
+        ]
+      }
+    }
+  }
+}
