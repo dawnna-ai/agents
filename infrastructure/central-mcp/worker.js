@@ -3,6 +3,10 @@ const TENANTS = Object.freeze({
   allstar: {
     writable: ["appurM1afA62rGexV", "appciaTjCX0E7fOmd"],
     readable: ["appurM1afA62rGexV", "appciaTjCX0E7fOmd", "appPTXlaoBTc7L7DK", "apphxr3PoumhGMYoz"]
+  },
+  elhamm: {
+    writable: ["appBCXW4kuB0HMgiJ", "appGouXjb1SmK16u5"],
+    readable: ["appBCXW4kuB0HMgiJ", "appGouXjb1SmK16u5", "appPTXlaoBTc7L7DK", "apphxr3PoumhGMYoz"]
   }
 });
 const MAX_BODY = 50000;
@@ -18,6 +22,7 @@ async function authenticate(request,env,ctx){
   try { identity = await ctx.access.getIdentity(); } catch { return null; }
   const email = String(identity?.email || '').trim().toLowerCase();
   if(email === 'mikemdf71@gmail.com') return {tenant:'allstar', subject:email};
+  if(email === 'niko.hamm@elhamm.com') return {tenant:'elhamm', subject:email};
   return null;
 }
 const toolDefs=[
@@ -38,7 +43,7 @@ async function doTool(name,args,identity,env){
   if(["create_record","update_record"].includes(name)&&(!args.fields||typeof args.fields!=="object"||Array.isArray(args.fields)))
     throw new Error("Invalid record fields");
   const isFramework=!rights.writable.includes(args.base_id);
-  const token=isFramework?env.FRAMEWORK_AIRTABLE_TOKEN:env.ALLSTAR_AIRTABLE_TOKEN;
+  const token=isFramework?env.FRAMEWORK_AIRTABLE_TOKEN:(identity.tenant==="allstar"?env.ALLSTAR_AIRTABLE_TOKEN:identity.tenant==="elhamm"?env.ELHAMM_AIRTABLE_TOKEN:null);
   if(!token)throw new Error("Airtable credentials not provisioned");
   let uri="https://api.airtable.com/v0/"+args.base_id+"/"+encodeURIComponent(args.table_id);
   let method="GET",body;
