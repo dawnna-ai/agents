@@ -13,7 +13,7 @@ const err = (id,code,message) => ({jsonrpc:"2.0",id,error:{code,message}});
 function b64(s){return Uint8Array.from(atob(s.replace(/-/g,"+").replace(/_/g,"/").padEnd(Math.ceil(s.length/4)*4,"=")),x=>x.charCodeAt(0));}
 async function authenticate(request,env,ctx){
   // Trust only identity verified by Cloudflare Access for this exact application.
-  if (!ctx?.access || ctx.access.aud !== '32b0d084a2cd69b6e1ac6534d2dd32ef6f115c30ff7bed99d72915e811b9c97b') return null;
+  if (!ctx?.access || !['32b0d084a2cd69b6e1ac6534d2dd32ef6f115c30ff7bed99d72915e811b9c97b', 'a1640dfc43828c58e4222160be6284585964ac504a89a5a02639ae5e76825cd2'].includes(ctx.access.aud)) return null;
   let identity;
   try { identity = await ctx.access.getIdentity(); } catch { return null; }
   const email = String(identity?.email || '').trim().toLowerCase();
