@@ -32,7 +32,7 @@ async function doTool(name,args,identity,env){
   const writable=["create_record","update_record"].includes(name);
   if(!rights||!rights.readable.includes(args.base_id)||(writable&&!rights.writable.includes(args.base_id)))
     throw new Error("Base not authorized for this client and operation");
-  if(!validId(args.base_id,"app")||!validId(args.table_id,"tbl")||
+  if(!validId(args.base_id,"app")||!(validId(args.table_id,"tbl")||(typeof args.table_id==="string"&&args.table_id.length>0&&args.table_id.length<=100&&!/[\/\?#]/.test(args.table_id)))||
      (["read_record","update_record"].includes(name)&&!validId(args.record_id,"rec")))
     throw new Error("Invalid Airtable identifier");
   if(["create_record","update_record"].includes(name)&&(!args.fields||typeof args.fields!=="object"||Array.isArray(args.fields)))
@@ -40,7 +40,7 @@ async function doTool(name,args,identity,env){
   const isFramework=!rights.writable.includes(args.base_id);
   const token=isFramework?env.FRAMEWORK_AIRTABLE_TOKEN:env.ALLSTAR_AIRTABLE_TOKEN;
   if(!token)throw new Error("Airtable credentials not provisioned");
-  let uri="https://api.airtable.com/v0/"+args.base_id+"/"+args.table_id;
+  let uri="https://api.airtable.com/v0/"+args.base_id+"/"+encodeURIComponent(args.table_id);
   let method="GET",body;
   if(name==="list_records"){
     const limit=Number.isInteger(args.max_records)?Math.min(Math.max(args.max_records,1),50):10;
@@ -51,7 +51,7 @@ async function doTool(name,args,identity,env){
   else throw new Error("Unknown tool");
   const res=await fetch(uri,{method,headers:{"authorization":"Bearer "+token,"content-type":"application/json"},body});
   const responseText=await res.text();
-  if(!res.ok)throw new Error("Airtable request failed ("+res.status+")");
+  if(!res.ok){ let cause="unknown"; try{cause=String(JSON.parse(responseText)?.error?.type||"unknown").slice(0,80)}catch{}; throw new Error("Airtable request failed ("+res.status+", "+cause+")"); }
   return JSON.parse(responseText);
 }
 export default {
