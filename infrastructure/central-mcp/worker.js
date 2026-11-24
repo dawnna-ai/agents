@@ -25,39 +25,85 @@ async function authenticate(request,env,ctx){
   if(email === 'niko.hamm@elhamm.com') return {tenant:'elhamm', subject:email};
   return null;
 }
-const toolDefs=[
-  ["list_records","List selected records from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},max_records:{type:"integer",minimum:1,maximum:50}}],
-  ["read_record","Read a record from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},record_id:{type:"string"}}],
-  ["create_record","Create one record in an authorized writable client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},fields:{type:"object"}}],
-  ["update_record","Update one existing record in an authorized writable client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},record_id:{type:"string"},fields:{type:"object"}}]
-].map(([name,description,properties])=>({name,description,inputSchema:{type:"object",properties,required:Object.keys(properties).filter(x=>x!=="max_records"),additionalProperties:false}}));
+
+const FRAMEWORKS = Object.freeze({
+  appPTXlaoBTc7L7DK: "Agent Framework Master",
+  apphxr3PoumhGMYoz: "6ix Framework Master"
+});
+const BASE_DIRECTORY = Object.freeze({
+  allstar: {appurM1afA62rGexV: "AllStar Business Database", appciaTjCX0E7fOmd: "AllStar Agent Operations"},
+  elhamm: {appBCXW4kuB0HMgiJ: "E.L. Hamm Business Database", appGouXjb1SmK16u5: "E.L. Hamm Agent Operations"}
+});
+const toolSpecs = [
+ ["list_bases","Discover the current authenticated client's authorized Airtable bases with their purpose and read/write permissions. No arguments needed.",{},[]],
+ ["list_tables","Discover the tables and names in an authorized Airtable base. Requires schema.bases:read scope on the corresponding Airtable token.",{base_id:{type:"string"}},["base_id"]],
+ ["get_table_schema","Discover field names, IDs, types and descriptions in an authorized Airtable table. Requires schema.bases:read scope.",{base_id:{type:"string"},table_id:{type:"string"}},["base_id","table_id"]],
+ ["search_records","Search records by text in an authorized Airtable table. Scans at most 500 records; results can be partial in larger tables.",{base_id:{type:"string"},table_id:{type:"string"},query:{type:"string",minLength:1,maxLength:200},max_records:{type:"integer",minimum:1,maximum:50}},["base_id","table_id","query"]],
+ ["list_records","List selected records from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},max_records:{type:"integer",minimum:1,maximum:50}},["base_id","table_id"]],
+ ["read_record","Read a record from an authorized client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},record_id:{type:"string"}},["base_id","table_id","record_id"]],
+ ["create_record","Create one record in an authorized writable client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},fields:{type:"object"}},["base_id","table_id","fields"]],
+ ["update_record","Update one existing record in an authorized writable client Airtable table",{base_id:{type:"string"},table_id:{type:"string"},record_id:{type:"string"},fields:{type:"object"}},["base_id","table_id","record_id","fields"]]
+];
+const toolDefs=toolSpecs.map(([name,description,properties,required])=>({name,description,inputSchema:{type:"object",properties,required,additionalProperties:false}}));
 function validId(id,prefix){return typeof id==="string"&&new RegExp("^"+prefix+"[A-Za-z0-9]{14}$").test(id);}
+function validTable(id){return validId(id,"tbl")||(typeof id==="string"&&id.length>0&&id.length<=100&&!/[\\/\\?#]/.test(id));}
+function authorized(args,identity,writable=false){
+ const rights=TENANTS[identity.tenant];
+ if(!rights||!validId(args.base_id,"app")||!rights.readable.includes(args.base_id)||(writable&&!rights.writable.includes(args.base_id)))throw new Error("Base not authorized for this client and operation");
+ return rights;
+}
+function getToken(identity,base,rights,env){
+ const t=!rights.writable.includes(base)?env.FRAMEWORK_AIRTABLE_TOKEN:identity.tenant==="allstar"?env.ALLSTAR_AIRTABLE_TOKEN:identity.tenant==="elhamm"?env.ELHAMM_AIRTABLE_TOKEN:null;
+ if(!t)throw new Error("Airtable credentials not provisioned");
+ return t;
+}
+async function airtable(url,token,method="GET",body){
+ const res=await fetch(url,{method,headers:{authorization:"Bearer "+token,"content-type":"application/json"},body});
+ const responseText=await res.text();
+ if(!res.ok){let cause="unknown";try{cause=String(JSON.parse(responseText)?.error?.type||"unknown").slice(0,80)}catch{};throw new Error("Airtable request failed ("+res.status+", "+cause+")");}
+ try{return JSON.parse(responseText)}catch{throw new Error("Invalid Airtable response")}
+}
 async function doTool(name,args,identity,env){
-  const rights=TENANTS[identity.tenant];
-  const writable=["create_record","update_record"].includes(name);
-  if(!rights||!rights.readable.includes(args.base_id)||(writable&&!rights.writable.includes(args.base_id)))
-    throw new Error("Base not authorized for this client and operation");
-  if(!validId(args.base_id,"app")||!(validId(args.table_id,"tbl")||(typeof args.table_id==="string"&&args.table_id.length>0&&args.table_id.length<=100&&!/[\/\?#]/.test(args.table_id)))||
-     (["read_record","update_record"].includes(name)&&!validId(args.record_id,"rec")))
-    throw new Error("Invalid Airtable identifier");
-  if(["create_record","update_record"].includes(name)&&(!args.fields||typeof args.fields!=="object"||Array.isArray(args.fields)))
-    throw new Error("Invalid record fields");
-  const isFramework=!rights.writable.includes(args.base_id);
-  const token=isFramework?env.FRAMEWORK_AIRTABLE_TOKEN:(identity.tenant==="allstar"?env.ALLSTAR_AIRTABLE_TOKEN:identity.tenant==="elhamm"?env.ELHAMM_AIRTABLE_TOKEN:null);
-  if(!token)throw new Error("Airtable credentials not provisioned");
-  let uri="https://api.airtable.com/v0/"+args.base_id+"/"+encodeURIComponent(args.table_id);
-  let method="GET",body;
-  if(name==="list_records"){
-    const limit=Number.isInteger(args.max_records)?Math.min(Math.max(args.max_records,1),50):10;
-    uri+="?maxRecords="+limit+"&pageSize="+limit;
-  }else if(name==="read_record")uri+="/"+args.record_id;
-  else if(name==="create_record"){method="POST";body=JSON.stringify({fields:args.fields,typecast:false});}
-  else if(name==="update_record"){method="PATCH";uri+="/"+args.record_id;body=JSON.stringify({fields:args.fields,typecast:false});}
-  else throw new Error("Unknown tool");
-  const res=await fetch(uri,{method,headers:{"authorization":"Bearer "+token,"content-type":"application/json"},body});
-  const responseText=await res.text();
-  if(!res.ok){ let cause="unknown"; try{cause=String(JSON.parse(responseText)?.error?.type||"unknown").slice(0,80)}catch{}; throw new Error("Airtable request failed ("+res.status+", "+cause+")"); }
-  return JSON.parse(responseText);
+ if(name==="list_bases"){
+   const rights=TENANTS[identity.tenant];if(!rights)throw new Error("Unknown tenant");
+   return {tenant:identity.tenant,bases:rights.readable.map(id=>({id,name:FRAMEWORKS[id]||BASE_DIRECTORY[identity.tenant]?.[id]||"Authorized client base",purpose:FRAMEWORKS[id]?"shared_framework":"client_database",access:rights.writable.includes(id)?"read_write":"read_only"}))};
+ }
+ const writable=["create_record","update_record"].includes(name);
+ const rights=authorized(args,identity,writable);
+ const token=getToken(identity,args.base_id,rights,env);
+ if(name==="list_tables"||name==="get_table_schema"){
+   const meta=await airtable("https://api.airtable.com/v0/meta/bases/"+args.base_id+"/tables",token);
+   if(!Array.isArray(meta.tables))throw new Error("Invalid Airtable schema");
+   if(name==="list_tables")return {base_id:args.base_id,tables:meta.tables.map(t=>({id:t.id,name:t.name,description:t.description||"",primaryFieldId:t.primaryFieldId}))};
+   if(!validTable(args.table_id))throw new Error("Invalid table identifier");
+   const table=meta.tables.find(t=>t.id===args.table_id||t.name===args.table_id);
+   if(!table)throw new Error("Table not found in authorized base");
+   return {base_id:args.base_id,table:{id:table.id,name:table.name,description:table.description||"",primaryFieldId:table.primaryFieldId,fields:(table.fields||[]).map(f=>({id:f.id,name:f.name,type:f.type,description:f.description||"",options:f.options||undefined}))}};
+ }
+ if(!validTable(args.table_id)||(["read_record","update_record"].includes(name)&&!validId(args.record_id,"rec")))throw new Error("Invalid Airtable identifier");
+ if(writable&&(!args.fields||typeof args.fields!=="object"||Array.isArray(args.fields)))throw new Error("Invalid record fields");
+ let uri="https://api.airtable.com/v0/"+args.base_id+"/"+encodeURIComponent(args.table_id);
+ if(name==="list_records"){
+   const limit=Number.isInteger(args.max_records)?Math.min(Math.max(args.max_records,1),50):10;
+   return airtable(uri+"?maxRecords="+limit+"&pageSize="+limit,token);
+ }
+ if(name==="search_records"){
+   if(typeof args.query!=="string"||!args.query.trim()||args.query.length>200)throw new Error("Invalid search query");
+   const q=args.query.toLocaleLowerCase();const limit=Number.isInteger(args.max_records)?Math.min(Math.max(args.max_records,1),50):10;
+   const matches=[];let offset,scanned=0;
+   do{
+     const query=new URLSearchParams({pageSize:"100"});if(offset)query.set("offset",offset);
+     const page=await airtable(uri+"?"+query,token);
+     if(!Array.isArray(page.records))throw new Error("Invalid Airtable records");
+     for(const rec of page.records){scanned++;if(Object.values(rec.fields||{}).some(v=>JSON.stringify(v).toLocaleLowerCase().includes(q)))matches.push(rec);if(matches.length>=limit||scanned>=500)break;}
+     offset=page.offset;
+   }while(offset&&matches.length<limit&&scanned<500);
+   return {records:matches.slice(0,limit),scanned_records:scanned,partial:!!offset||scanned>=500,search_scope:"first 500 records maximum; use specific table and narrower searches for large datasets"};
+ }
+ if(name==="read_record")return airtable(uri+"/"+args.record_id,token);
+ if(name==="create_record")return airtable(uri,token,"POST",JSON.stringify({fields:args.fields,typecast:false}));
+ if(name==="update_record")return airtable(uri+"/"+args.record_id,token,"PATCH",JSON.stringify({fields:args.fields,typecast:false}));
+ throw new Error("Unknown tool");
 }
 export default {
   async fetch(request,env,ctx){
