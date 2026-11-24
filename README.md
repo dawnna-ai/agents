@@ -20,6 +20,10 @@ All business-base references, agent-operations references, credentials, and allo
 
 Airtable persists authorized operational truth. Agents may write only within their approved responsibilities and integration permissions; preserve existing records, decisions, version history, and completion evidence. An assigned task is not proof of execution, and a handoff record is not proof an agent was contacted.
 
+## Agent visual identity
+
+All new plugins must use the same existing Selling Certainty agent icon assets as Quinn, Clyde, PJ, Emma, Sofia and Lena. Copy the **exact** `appicon-circle-512.png` and `appicon-charcoal-512.png` blobs into each plugin's `assets/` directory; do not substitute a new logo, illustration or different icon. In the ChatGPT manifest, set `logo`/`composerIcon` to `./assets/appicon-circle-512.png` and `logoDark`/`composerIconDark` to `./assets/appicon-charcoal-512.png`. Confirm both local asset paths exist before releasing the plugin. Claude uses the same packaged artwork where its client displays plugin icons.
+
 ## Distribution
 
 The six original agents retain their existing versions; the seventh **ideal-client-profile** plugin is introduced at **1.0.0**. Repository changes must be synchronized through the relevant ChatGPT and Claude installation/update path to reach existing installations. Updating this repository alone does not confirm an installed client plugin refreshed.
