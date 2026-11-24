@@ -1,6 +1,6 @@
 # Selling Certainty — Agent Repository
 
-Canonical, version-controlled instructions and plugin packaging for six reusable agents deployed in ChatGPT and Claude. The same behavioral definitions serve both platforms; platform-specific manifests are packaging only.
+Canonical, version-controlled instructions and plugin packaging for seven reusable agents deployed in ChatGPT and Claude. The same behavioral definitions serve both platforms; platform-specific manifests are packaging only.
 
 ## Agents
 - **Quinn** — Executive Assistant to Dawnna St. Louis and Agent Operations Chief. Performs authorized executive work directly, oversees cross-functional accountability, resolves dependencies and verifies completion.
@@ -9,6 +9,8 @@ Canonical, version-controlled instructions and plugin packaging for six reusable
 - **Lena** — Qualified lead generation, organizer/stage outreach, follow-up and relationship handoffs.
 - **PJ** — Pickle Jar Run discovery, evidence preservation, and PJR8 handoff.
 - **Clyde** — Client business development and delivery after PJ discovery.
+
+- **Ideal Client Persona** — Independent buyer simulation selected from the active client's approved Airtable Ideal Client Profiles; supports any number of named profiles across industries, with no hardcoded buyer list.
 
 ## Operating governance
 
@@ -20,6 +22,8 @@ Airtable persists authorized operational truth. Agents may write only within the
 
 ## Distribution
 
-The six agent plugin versions are aligned at **1.0.2**. Repository changes must be synchronized through the relevant ChatGPT and Claude installation/update path to reach existing installations. Updating this repository alone does not confirm an installed client plugin refreshed.
+The six original agents retain their existing versions; the seventh **ideal-client-profile** plugin is introduced at **1.0.0**. Repository changes must be synchronized through the relevant ChatGPT and Claude installation/update path to reach existing installations. Updating this repository alone does not confirm an installed client plugin refreshed.
+
+For Ideal Client Persona, the client project specifies the Business Airtable base, Ideal Client Profiles table, approval criteria and a read-only connector. Persona selection is by approved record name, not a fixed set of labels. ChatGPT and Claude installations must each be configured and tested separately.
 
 No client data or credentials should be embedded in this repository.
